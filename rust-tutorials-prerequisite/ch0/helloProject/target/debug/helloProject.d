@@ -1,0 +1,1 @@
+J:\Users\James\Documents\GitHub\solana-developer-bootcamp\rust-tutorials-prerequisite\ch0\helloProject\target\debug\helloProject.exe: J:\Users\James\Documents\GitHub\solana-developer-bootcamp\rust-tutorials-prerequisite\ch0\helloProject\src\main.rs
