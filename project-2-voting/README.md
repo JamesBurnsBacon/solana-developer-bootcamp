@@ -1,5 +1,5 @@
 # Project 2: Voting
-46m in
+1:15m in, next step is to use idl eg voting.json
 
 Installing rust, solana toolchain, anchor
 
