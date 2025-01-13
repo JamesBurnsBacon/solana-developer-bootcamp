@@ -36,6 +36,8 @@ describe('Voting', () => {
 
     console.log(poll);
 
-
+    expect(poll.pollId.toNumber()).toEqual(1);
+    expect(poll.description).toEqual("What is your favorite type of peanut butter?");
+    expect(poll.pollStart.toNumber()).toBeLessThan(poll.pollEnd.toNumber());
   })
 })

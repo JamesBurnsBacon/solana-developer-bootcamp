@@ -21,7 +21,31 @@ pub mod voting {
         poll.candidate_amount = 0;                  
         Ok(())
     }
+
+    pub fn initialize_candidate(context: Context<InitializeCandidate>,
+                                candidate_name: String,
+                                poll_id: u64) -> Result<()> {
+        candidate.candidate_name = candidate_name;
+        Ok(())
+
+    }
 }
+
+#[derive(Accounts)]
+#[instruction(candidate_name: String, poll_id: u64)]
+pub struct InitializeCandidate<'info> {
+    #[account(mut)]    
+    pub signer: Signer<'info>,
+
+    #[account(
+        seeds = [poll_id.to_le_bytes().as_ref],
+        bump
+    )]
+
+    pub poll: Account<'info, Poll>,
+    pub system_program: Program<'info, System>,
+}
+   
 
 #[derive(Accounts)]
 #[instruction(poll_id: u64)]
