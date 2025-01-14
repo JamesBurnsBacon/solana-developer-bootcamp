@@ -1,7 +1,7 @@
 import { createNft, fetchDigitalAsset, mplTokenMetadata } from "@metaplex-foundation/mpl-token-metadata";
 import { airdropIfRequired, getExplorerLink, getKeypairFromFile } from "@solana-developers/helpers";
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
-import { generateSigner, keypairIdentity, percentAmount } from "@metaplex-foundation/umi";
+import { generateSigner, keypairIdentity, percentAmount, publicKey } from "@metaplex-foundation/umi";
 import { clusterApiUrl, Connection, LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 const connection = new Connection(clusterApiUrl("devnet"));
@@ -19,23 +19,25 @@ umi.use(keypairIdentity(umiUser));
 
 console.log("Set up Umi instance for user");
 
-const collectionMint = generateSigner(umi); //making a keypair
+const collectionAddress = publicKey("vAVSe66vQgi2EV5smbqkPvupkd97RxQHfsgCyJ5Ufcg"); //umi method, differs from web3 js method of new PublicKey
+
+console.log(`creating NFT...`);
+
+const mint = generateSigner(umi);
 
 const transaction = await createNft(umi, {
-    mint: collectionMint,
-    name: "My Collection",
-    symbol: "MC",
-    uri: "https://raw.githubusercontent.com/JamesBurnsBacon/solana-developer-bootcamp/refs/heads/main/project-6-nfts/new-nft/test-collection.json",
-    sellerFeeBasisPoints: percentAmount(0), //artists can make money on secondary sales with this
-    isCollection: true
-}); //creates the nft collection
+    mint,
+    name: "Dylan The Destroyer",
+    uri: "https://raw.githubusercontent.com/JamesBurnsBacon/solana-developer-bootcamp/refs/heads/main/project-6-nfts/new-nft/test-nft.json",
+    sellerFeeBasisPoints: percentAmount(0),
+    collection: {
+        key: collectionAddress, 
+        verified: false //when we first make it, it's false, changes to true during minting process
+    },
+})
 
 await transaction.sendAndConfirm(umi);
 
-const createdCollectionNft = await fetchDigitalAsset(umi, collectionMint.publicKey);
+const createdNft = await fetchDigitalAsset(umi, mint.publicKey);
 
-console.log(`Created Collection MC! Address is ${getExplorerLink(
-    "address",
-    createdCollectionNft.mint.publicKey, 
-    "devnet"
-)}`)
+console.log(`Created NFT! Address is ${getExplorerLink("address", createdNft.mint.publicKey, "devnet")}`);
