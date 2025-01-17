@@ -54,7 +54,7 @@ export async function POST(request: Request) {
     .vote(candidate, new BN(1))
     .accounts({
       signer: voter,
-    }),
+    })
     .instruction();
 
   const blockhash = await connection.getLatestBlockhash();  //expire after 150 confirmed blocks, to prevent replay attacks
@@ -67,6 +67,7 @@ export async function POST(request: Request) {
 
   const response = await createPostResponse({
     fields: {
+      type: "transaction",
       transaction: transaction
     }
   });
