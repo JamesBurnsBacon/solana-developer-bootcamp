@@ -7,3 +7,5 @@ Actions resemble a typical REST API call. See solana.com/docs/advanced/actions [
 
 Dialect allows us to test the blink: https://dial.to/?action=solana-action:http://localhost:3000/api/vote
 In production, you must register solana actions via dialect or others to turn off warnings.
+
+The local RPC setup provided in the bootcamp example is deprecated. Fully testing this code would require a devnet deploy.

@@ -4,9 +4,10 @@ import { Keypair, PublicKey } from '@solana/web3.js'
 import { Voting } from '../target/types/voting'
 import { startAnchor } from 'anchor-bankrun'
 import { BankrunProvider } from 'anchor-bankrun'
+import { workspace } from '@coral-xyz/anchor'
 
 const IDL = require("../target/idl/voting.json");
-const votingAddress = new PublicKey("coUnmi3oBUtwtd9fjeAvSsJssXh5A5xyPbhpewyzRVF");
+const votingAddress = new PublicKey("pxGwFo36CUmLzsAFVuZUki4acjgVSaHc6EyLR7dV1HW");
 
 describe('Voting', () => {
   // Configure the client to use the local cluster.
@@ -14,6 +15,8 @@ describe('Voting', () => {
   let context: any;
   let provider: BankrunProvider;
   let votingProgram: Program<Voting>;
+  //anchor.setProvider(anchor.AnchorProvider(env()); //set provider
+  //let votingProgram: workspace.Voting as Program<Voting>;
 
   beforeAll(async () => {
     context = await startAnchor("", [{name: "voting", programId: votingAddress}], []); //because tests are local, leave first param as blank str
