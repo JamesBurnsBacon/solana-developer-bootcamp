@@ -4,7 +4,7 @@ October 2024 Solana Foundation Developer Bootcamp, Contains 13 Projects
 ### Projects
 - [x] Favorites  
 - [x] Voting  
-- [ ] Blinks  
+- [x] Blinks  
 - [ ] CRUD App  
 - [x] Tokens  
 - [x] NFTs  
